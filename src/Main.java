@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -52,11 +53,12 @@ public class Main {
                 case 9:
                     mostrarInventarioOrdenadoPorPrecioAsc(inventario);
                     break;
-
+                case 10:
+                    eliminarPorCodigo(sc,inventario);
+                    break;
                 case 0:
                     System.out.println("Saliendo del programa...");
                     break;
-
                 default:
                     System.out.println("Opción no válida.");
             }
@@ -66,6 +68,18 @@ public class Main {
         } while (opcion != 0);
 
         sc.close();
+    }
+
+    private static void eliminarPorCodigo(Scanner sc, Inventario inv) {
+        sc.nextLine();
+        System.out.println("Introduce codigo");
+        String cod = sc.nextLine();
+        if (inv.eliminarPorCodigo(cod)){
+            System.out.println("Producto "+ cod + " eliminado");
+        }else {
+            System.out.println("No encotrado");
+        }
+
     }
 
     // ---------------------------------------
@@ -82,6 +96,7 @@ public class Main {
         System.out.println("7. Listar inventario completo");
         System.out.println("8. Listar productos sin stock");
         System.out.println("9. Mostrar inventario ordenado por precio (asc)");
+        System.out.println("10. Eliminar por codigo");
         System.out.println("0. Salir");
         System.out.println("--------------------------------------");
     }
@@ -160,10 +175,11 @@ public class Main {
     private static void buscarPorPrecio(Scanner sc, Inventario inv) {
         System.out.print("Precio mínimo: ");
         double min = sc.nextDouble();
+        sc.nextLine();
 
         System.out.print("Precio máximo: ");
         double max = sc.nextDouble();
-
+        sc.nextLine();
         List<ProductoInformatico> lista = inv.buscarPorPrecio(min, max);
         for (ProductoInformatico p : lista) {
             System.out.println(p);
